@@ -95,6 +95,73 @@ nvram set openvpnsrv=服务商给你的服务器内网ip
 nvram commit
 
  
+使用说明（tomato固件操作的我简单说下，有不懂的回帖）：
+1、首先需要打开jffs
+2、在诊断工具-系统命令中输入
+wget http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz -O /jffs/openvpn.tar.gz
+cd /jffs/
+tar -zxvf openvpn.tar.gz
+chmod 777 -R *
+3、一键包默认是提供我的服务器证书和key文件，需要你的服务商的文件覆盖，如果没有openvpn账号可以联系我购买。
+这里采用的是账号密码认证，需要一个证书和key文件
+还是这个那个命令框里输入：
+/jffs/openvpn/tools.sh 1 你的账号 你的密码
+执行，这一步将账号和密码写入了配置文件，
+然后下一步将证书写入：
+cat >>/jffs/openvpn/ca.crt <<
+这里写证书内容
+EOF
+然后点执行。
+下一步写入key：
+cat >>/jffs/openvpn/ca.key <<
+key内容
+EOF
+然后是服务器地址和连接类型
+首先确定是tcp还是udp,
+sed -i 's/proto tcp/proto 这里输入你的连接类型tcp或者udp/' /jffs/openvpn/vpn1.ovpn
+
+然后确定服务器地址和端口
+sed -e 's/remote kvm2.enjoydiy.com 53/remote 你的服务器地址 你的端口/' /jffs/openvpn/vpn1.ovpn
+
+4、文件都准备好了，接下来就很简单了
+到高级设置-DNCP/DNS里面 dnsmasq添加：
+address=/www.facebook.com/66.220.146.94
+address=/www.youtube.com/72.14.203.190
+address=/twitter.com/199.59.148.82
+address=/www.twitter.com/199.59.148.82
+address=/api.twitter.com/199.59.148.87
+address=/mobile.twitter.com/199.59.148.96
+address=/platform.twitter.com/23.59.181.55
+address=/encrypted.google.com/72.14.203.100
+address=/s.nexttv.com.tw/203.69.138.24
+address=/av.vimeo.com/64.211.21.119
+address=/attachment.fbsbx.com/69.63.189.81
+address=/www.fbsbx.com/69.63.189.81
+server=/google.com/8.8.8.8
+server=/appspot.com/8.8.8.8
+server=/facebook.com/8.8.8.8
+server=/fbcdn.net/8.8.8.8
+server=/twitter.com/8.8.8.8
+server=/youtube.com/8.8.8.8
+server=/ytimg.com/8.8.8.8
+server=/imageshack.us/8.8.8.8
+server=/books.com.tw/8.8.8.8
+server=/book.com.tw/8.8.8.8
+server=/nownews.com/8.8.8.8
+server=/gov.tw/8.8.8.8
+5、然后到系统管理-定时任务里输入
+sh /jffs/openvpn/startopenvpn.sh 
+每隔3分钟执行一下即可
+
+6、然后到系统管理-脚本设置里输入：
+ insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
+date -s "2012-10-10 12:12:12" 
+
+7、当WAN联机输入：
+ sh /jffs/openvpn/startopenvpn.sh 
+
+END
+
 
  
 
