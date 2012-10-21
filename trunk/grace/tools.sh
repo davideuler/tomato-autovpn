@@ -119,11 +119,20 @@ case "$fun" in
   7)
    if [ -n "$2" ]; then
       sed -e "s/enjoydiy.com/${2}/" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
+   if [ -n "$3" ] && [ -n "$4" ]; then
+      IP=$2
+      PORT=$3
+      XIEYI=$4
+      sed -e "s/remote enjoydiy.com 53/remote $IP $PORT/" /jffs/openvpn/vpn1.ovpn.bak | sed -e "s/proto tcp/proto $XIEYI" > /jffs/openvpn/vpn1.ovpn
+      echo "OK"
+   fi
       echo "OK"
       exit
    else
       read -p "Enter openvpn server ip:" IP
-      sed -e "s/enjoydiy.com/$IP/" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
+      read -p "Enter openvpn server port:" PORT
+      read -p  "Enter openvpn server is tcp or udp" XIEYI
+      sed -e "s/remote enjoydiy.com 53/remote $IP $PORT/" /jffs/openvpn/vpn1.ovpn.bak | sed -e "s/proto tcp/proto $XIEYI" > /jffs/openvpn/vpn1.ovpn
       echo "OK"
    fi
   ;;
