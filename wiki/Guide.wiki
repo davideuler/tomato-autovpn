@@ -1,0 +1,104 @@
+tautovpn是从chnroutes和autoddvpn启发而来的一套完整的解决方案。他可以让Tomato路由器达到自动分流的效果。让连接到路由器上的设备能够自动fan墙，客户端无论是Windows，IPhone，IPad还是MAC等都感觉不到任何麻烦直接访问全球所有的网站，完全感觉不到墙的存在。
+
+ttautovpn具有的新特性：
+
+1、能够自动fan墙，自动连接openvpn等程序。
+
+2、改程序是基于GFWLIST，只将被墙的IP加入路由表走VPN。更能节省VPN流量。
+
+3、他能够自动检测到当前VPN运行是否正常，并作处理，保证稳定运行。
+
+4、他能够自动更新路由表
+
+5、他弥补了tomato固件的很多缺陷（后面会说到）
+
+5、更加便捷的管理
+
+ 
+
+项目位置：
+
+Google Code托管地址：
+
+http://code.google.com/p/tomato-autovpn/
+
+GitHub 托管地址：
+
+https://github.com/enjoydiy/ttautovpn
+
+具体的安装方法请参考：
+http://blog.enjoydiy.com/2012/10/897/%e5%8e%9f%e5%88%9btomato-%e8%b7%af%e7%94%b1%e5%99%a8openvpn%e8%87%aa%e5%8a%a8%e7%bf%bb%e5%a2%99%e4%b8%80%e9%94%ae%e5%ae%89%e8%a3%85%e5%8c%85.html
+
+一键安装tar包下载地址：
+
+http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz
+
+
+
+
+tomato系统缺陷带来的影响：
+
+主要是由于DNSMASQ程序运行极其的不稳定，经常自动重启，每次重启都会导致NAT表丢失，路由丢失或者默认网关丢失，给我们带来很多的麻烦，已经向官方提出，但官方好像并不注重我们的问题，tomato的这个bug会导致网络数据不能走VPN，所以在脚本中我们已经尽量去弥补这个不足，这些功能主要靠那个循环运行的脚本实现。
+
+ 
+
+关键文件说明：
+
+1、startopenvpn.sh 这个是openvpn的启动和检测纠错脚本，建议每隔3分钟运行一下，开机启动运行一下。
+
+2、tools.sh 这个是管理工具，主要有如下功能：
+
+The functions lists: 
+———————————————- 
+1.Set openvpn account and password (设置VPN的账号和密码) 
+2.Set a IP through VPN    （将一个ip强迫走VPN） 
+3.Set a IP through your network （将一个ip强迫走本地网络） 
+4.Clean up the your own network routes lists （清除自定义的路由表） 
+5.Start the openvpn daemon （启动openvpn程序） 
+6.Update routes from network （从网络下载最新的路由表） 
+7.Set openvpn server address （设置OPENVPN服务器地址） 
+8.Update the tools  （更新本工具） 
+9.exit and enjoy your life 
+———————————————-
+
+你可以在终端里直接运行： 输入 /jffs/openvpn/tools.sh
+
+然后按照提示输入相应的数字即可。
+
+3、ca.crt 是证书文件，需要将服务商证书覆盖
+
+4、ca.key是私钥文件
+
+5、vpn1.ovpn 是VPN的配置文件
+
+6、passwd.txt 是openvpn的账号和密码
+
+ 
+
+ 
+
+ 
+
+重要提示：
+
+目前还无法在tomato上面找到一个稳定的方法获取openvpn服务器端的内网IP，一般为10.8.0.1，目前的做法是在openvpn连接时候server会将该信息push下来，我们从log中找到了这个IP，但不保证所有的openvpn的服务商都能满足，如果获取不到这个IP，我们的检测程序将无法正常运行，检测方法是：
+
+在终端中运行：
+
+nvram get openvpnsrv
+
+如果能返回一个IP地址，然后你ping下这个地址，如果能通，说明已经能获取到了。
+
+如果不通或者无法获取到IP，则需要你问下你的服务商，服务器的内网IP是多少，然后做如下设置：
+
+nvram set openvpnsrv=服务商给你的服务器内网ip
+
+nvram commit
+
+ 
+
+ 
+
+该项目一个人费了很多精力去完成，免费提供给网友，请大家转载注明出处:http://blog.enjoydiy.com http://bbs.enjoydiy.com
+
+作者E-mail:admin@enjoydiy.com aefskw@gmail.com
