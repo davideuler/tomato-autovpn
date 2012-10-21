@@ -91,7 +91,7 @@ function clean_route()
 }
 function update_route()
 {
-	PING=PING=`ping -q -c4 github.com | grep received |awk '{print $4}'`
+	PING=PING=`ping -q -c4 googlecode.com | grep received |awk '{print $4}'`
 	if [[ $PING -lt 1 ]]
 	then
 		echo "bad network! update fail!"
@@ -99,7 +99,8 @@ function update_route()
 	else
 		#wget http://raw.github.com/enjoydiy/ttautovpn/master/up.sh -O /jffs/up.sh
 		#wget http://raw.github.com/enjoydiy/ttautovpn/master/down.sh -O /jffs/down.sh
-		wget https://raw.github.com/enjoydiy/ttautovpn/master/grace/routeg/route -O /jffs/openvpn/routeg/route.bak
+		rm /jffs/openvpn/routeg/route.bak
+		wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/route -O /jffs/openvpn/routeg/route.bak
 		if [ `cat /jffs/openvpn/routeg/route.bak | wc -l` -gt 100 ]; then
 			mv /jffs/openvpn/routeg/route.bak /jffs/openvpn/routeg/route
 			echo "success!"
@@ -128,7 +129,8 @@ function set_server()
 }
 function update_tools()
 {
-	wget https://raw.github.com/enjoydiy/ttautovpn/master/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
+	rm /jffs/openvpn/tools.sh.bak
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
 	if [ `cat /jffs/openvpn/tools.sh.bak | wc -l` -gt 100 ]; then
 		mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
 		echo "UPDATE OK!"
