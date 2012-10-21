@@ -139,9 +139,9 @@ case "$fun" in
   8)
    rm /jffs/openvpn/tools.sh.bak
    wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
+   chmod 777 /jffs/openvpn/tools.sh.bak
    if [ `cat /jffs/openvpn/tools.sh.bak | wc -l` -gt 100 ]; then
       mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
-      chmod 777 /jffs/openvpn/tools.sh
       echo "UPDATE OK!"
    fi
   ;;
