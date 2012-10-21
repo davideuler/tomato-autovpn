@@ -4,7 +4,7 @@
 #
 # Web: http://blog.enjoydiy.com http://bbs.enjoydiy.com
 #
-# USAGE: visit web.
+# USAGE: visit up web.
 #
 echo "##################################################"
 echo "#        Thanks for using VPN from EnjoyDiy      #"
