@@ -1,21 +1,5 @@
 tautovpn是从chnroutes和autoddvpn启发而来的一套完整的解决方案。他可以让Tomato路由器达到自动翻墙的效果。让连接到路由器上的设备能够自动翻墙墙，客户端无论是Windows，IPhone，IPad还是MAC等都感觉不到任何麻烦直接访问全球所有的网站，完全感觉不到墙的存在。
 
-ttautovpn具有的新特性：
-
-1、能够自动fan墙，自动连接openvpn等程序。
-
-2、改程序是基于GFWLIST，只将被墙的IP加入路由表走VPN。更能节省VPN流量。
-
-3、他能够自动检测到当前VPN运行是否正常，并作处理，保证稳定运行。
-
-4、他能够自动更新路由表
-
-5、他弥补了tomato固件的很多缺陷（后面会说到）
-
-5、更加便捷的管理
-
- 
-
 项目位置：
 
 Google Code托管地址：
@@ -31,9 +15,6 @@ http://blog.enjoydiy.com/2012/10/897.html
 一键安装tar包下载地址：
 
 http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz
-
-
-
 
 tomato系统缺陷带来的影响：
 
@@ -182,3 +163,6 @@ sh /jffs/openvpn/startopenvpn.sh
 该项目一个人费了很多精力去完成，免费提供给网友，请大家转载注明出处:http://blog.enjoydiy.com http://bbs.enjoydiy.com
 
 作者E-mail:admin@enjoydiy.com aefskw@gmail.com
+
+为了方便没有openvpn账号的网友，我的服务器限量提供openvpn账号，仅仅是为了付服务器的费用才收费的，价格不高，请体谅，网址http://auction1.paipai.com/2C2F760300000000002C3B5B082759B7
+或者http://bbs.enjoydiy.com 可以自助注册和续费（支付宝）
