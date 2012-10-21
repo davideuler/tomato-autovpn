@@ -49,7 +49,6 @@ case "$fun" in
       echo $a > /jffs/openvpn/passwd.txt
       echo $b >> /jffs/openvpn/passwd.txt
       echo "OK!"
-      main
    fi
   ;;
   2)
@@ -67,7 +66,6 @@ case "$fun" in
         route add -host $ip gw $VPNGW		
         echo "OK!"
         sleep 1
-        main
      else
         t_vpn
      fi
@@ -87,9 +85,7 @@ case "$fun" in
       route add -host $ip gw $OLDGW		
       echo "OK!"
       sleep 1
-      main
-   else
-      t_net
+      exit
    fi
   ;;
   4)
@@ -99,8 +95,6 @@ case "$fun" in
    if [ $1 ]; then
       echo $1
       exit 1
-   else
-      main
    fi
   ;;
   5)
@@ -111,7 +105,6 @@ case "$fun" in
    if [[ $PING -lt 1 ]]
    then
       echo "bad network! update fail!"
-      main
    else
       #wget http://raw.github.com/enjoydiy/ttautovpn/master/up.sh -O /jffs/up.sh
       #wget http://raw.github.com/enjoydiy/ttautovpn/master/down.sh -O /jffs/down.sh
@@ -122,11 +115,6 @@ case "$fun" in
          echo "success!"
       else
          echo "fail!"
-      fi
-      if [ -n "$1" ]; then
-         exit
-      else
-         main
       fi
    fi
   ;;
@@ -139,7 +127,6 @@ case "$fun" in
       read -p "Enter openvpn server ip:" IP
       sed -e "s/enjoydiy.com/${IP}" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
       echo "OK"
-      main
    fi
   ;;
   8)
@@ -149,11 +136,6 @@ case "$fun" in
       mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
       echo "UPDATE OK!"
    fi
-   if [ -n "$1" ]; then
-      exit
-   else
-      main
-   fi
   ;;
   9)
      echo "Good Bye!"
@@ -161,5 +143,4 @@ case "$fun" in
   ;;
   *)
      echo "The wrong num!"
-     main
 esac
