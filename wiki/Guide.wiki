@@ -169,13 +169,12 @@ sh /jffs/openvpn/startopenvpn.sh
 每隔3分钟执行一下即可
 
 6、然后到系统管理-脚本设置里输入：
- insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
+insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
 date -s "2012-10-10 12:12:12" 
 
 7、当WAN联机输入：
- sh /jffs/openvpn/startopenvpn.sh 
+sh /jffs/openvpn/startopenvpn.sh 
 
-END
 
 
  
