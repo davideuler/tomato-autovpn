@@ -61,13 +61,11 @@ case "$fun" in
      read -p "Please type in the ip address:" ip
      echo "The ip:$ip"
      read -p "The ip is right? y or n:" y
-     if [ "$y" -eq "y" ];then
+     if [ "$y" = "y" ];then
         echo "route add -host $ip gw \$VPNGW" >> /jffs/openvpn/vpnup_custom
         route add -host $ip gw $VPNGW		
         echo "OK!"
         sleep 1
-     else
-        t_vpn
      fi
   ;;
   3)
@@ -80,7 +78,7 @@ case "$fun" in
    read -p "Please type in the ip address:" ip
    echo "The ip:$ip"
    read -p "The ip is right? y or n:" y
-   if [ "$y" -eq "y" ];then
+   if [ "$y" = "y" ];then
       echo "route add -host $ip gw \$OLDGW" >> /jffs/openvpn/vpnup_custom
       route add -host $ip gw $OLDGW		
       echo "OK!"
@@ -120,12 +118,12 @@ case "$fun" in
   ;;
   7)
    if [ -n "$2" ]; then
-      sed -e "s/enjoydiy.com/${2}" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
+      sed -e "s/enjoydiy.com/${2}/" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
       echo "OK"
       exit
    else
       read -p "Enter openvpn server ip:" IP
-      sed -e "s/enjoydiy.com/${IP}" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
+      sed -e "s/enjoydiy.com/$IP/" /jffs/openvpn/vpn1.ovpn.bak > /jffs/openvpn/vpn1.ovpn
       echo "OK"
    fi
   ;;
@@ -134,6 +132,7 @@ case "$fun" in
    wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
    if [ `cat /jffs/openvpn/tools.sh.bak | wc -l` -gt 100 ]; then
       mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
+      chmod 777 /jffs/openvpn/tools.sh
       echo "UPDATE OK!"
    fi
   ;;
