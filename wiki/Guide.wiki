@@ -161,6 +161,9 @@ server=/books.com.tw/8.8.8.8
 server=/book.com.tw/8.8.8.8
 server=/nownews.com/8.8.8.8
 server=/gov.tw/8.8.8.8
+
+这些内容可以参考http://code.google.com/p/tomato-autovpn/source/browse/trunk/grace/routeg/dnsmasq
+
 5、然后到系统管理-定时任务里输入
 sh /jffs/openvpn/startopenvpn.sh 
 每隔3分钟执行一下即可
