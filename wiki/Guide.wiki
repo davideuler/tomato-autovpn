@@ -1,4 +1,4 @@
-tautovpn是从chnroutes和autoddvpn启发而来的一套完整的解决方案。他可以让Tomato路由器达到自动分流的效果。让连接到路由器上的设备能够自动fan墙，客户端无论是Windows，IPhone，IPad还是MAC等都感觉不到任何麻烦直接访问全球所有的网站，完全感觉不到墙的存在。
+tautovpn是从chnroutes和autoddvpn启发而来的一套完整的解决方案。他可以让Tomato路由器达到自动翻墙的效果。让连接到路由器上的设备能够自动翻墙墙，客户端无论是Windows，IPhone，IPad还是MAC等都感觉不到任何麻烦直接访问全球所有的网站，完全感觉不到墙的存在。
 
 ttautovpn具有的新特性：
 
