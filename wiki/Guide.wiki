@@ -27,8 +27,7 @@ GitHub 托管地址：
 https://github.com/enjoydiy/ttautovpn
 
 具体的安装方法请参考：
-http://blog.enjoydiy.com/2012/10/897/%e5%8e%9f%e5%88%9btomato-%e8%b7%af%e7%94%b1%e5%99%a8openvpn%e8%87%aa%e5%8a%a8%e7%bf%bb%e5%a2%99%e4%b8%80%e9%94%ae%e5%ae%89%e8%a3%85%e5%8c%85.html
-
+http://blog.enjoydiy.com/2012/10/897.html
 一键安装tar包下载地址：
 
 http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz
