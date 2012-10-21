@@ -97,30 +97,42 @@ nvram commit
  
 使用说明（tomato固件操作的我简单说下，有不懂的回帖）：
 1、首先需要打开jffs
+
 2、在诊断工具-系统命令中输入
 wget http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz -O /jffs/openvpn.tar.gz
 cd /jffs/
 tar -zxvf openvpn.tar.gz
 chmod 777 -R *
+
 3、一键包默认是提供我的服务器证书和key文件，需要你的服务商的文件覆盖，如果没有openvpn账号可以联系我购买。
 这里采用的是账号密码认证，需要一个证书和key文件
 还是这个那个命令框里输入：
+
 /jffs/openvpn/tools.sh 1 你的账号 你的密码
+
 执行，这一步将账号和密码写入了配置文件，
+
 然后下一步将证书写入：
+
 cat >>/jffs/openvpn/ca.crt <<
 这里写证书内容
 EOF
+
 然后点执行。
+
 下一步写入key：
+
 cat >>/jffs/openvpn/ca.key <<
 key内容
 EOF
+
 然后是服务器地址和连接类型
 首先确定是tcp还是udp,
+
 sed -i 's/proto tcp/proto 这里输入你的连接类型tcp或者udp/' /jffs/openvpn/vpn1.ovpn
 
 然后确定服务器地址和端口
+
 sed -e 's/remote kvm2.enjoydiy.com 53/remote 你的服务器地址 你的端口/' /jffs/openvpn/vpn1.ovpn
 
 4、文件都准备好了，接下来就很简单了
