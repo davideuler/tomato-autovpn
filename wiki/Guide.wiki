@@ -29,7 +29,7 @@ tomato系统缺陷带来的影响：
 2、tools.sh 这个是管理工具，主要有如下功能：
 
 
-The functions lists: 
+ The functions lists: 
 ———————————————- 
 1.Set openvpn account and password (设置VPN的账号和密码) 
 2.Set a IP through VPN    （将一个ip强迫走VPN） 
