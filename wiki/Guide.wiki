@@ -108,13 +108,11 @@ key内容
 EOF
 
 然后是服务器地址和连接类型
-首先确定是tcp还是udp,
+举个例子吧，比如服务器的IP是vpn.enjoydiy.com 端口为53 协议类型为tcp
+执行这个命令：
+/jffs/openvpn/tools.sh 7 vpn.enjoydiy.com 53 tcp
 
-sed -i 's/proto tcp/proto 这里输入你的连接类型tcp或者udp/' /jffs/openvpn/vpn1.ovpn
-
-然后确定服务器地址和端口
-
-sed -e 's/remote kvm2.enjoydiy.com 53/remote 你的服务器地址 你的端口/' /jffs/openvpn/vpn1.ovpn
+返回ok即可。
 
 4、文件都准备好了，接下来就很简单了
 到高级设置-DNCP/DNS里面 dnsmasq添加：
