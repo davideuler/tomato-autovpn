@@ -24,13 +24,13 @@ The functions lists:
 {{{
 /jffs/openvpn/tools.sh 1 账号 密码
 }}}
-输入这条命令既可设置openvpn的账号和密码
+ 输入这条命令既可设置openvpn的账号和密码
 
  2 将某个IP强制走VPN
 {{{
 /jffs/openvpn/tools.sh 1 ip地址
 }}}
-这个是立即生效的，并且下次重启后还会生效。
+ 这个是立即生效的，并且下次重启后还会生效。
 
  3 强制走本地网络
  这个用法和2一样的
@@ -55,7 +55,8 @@ The functions lists:
 /jffs/openvpn/tools.sh 7 服务器地址 端口 协议（tcp或者udp）
 }}}
 
- 8 更新本工具
+ 8 更新本工具和openvpn的启动脚本
 {{{
 /jffs/openvpn/tools.sh 8
 }}}
+ 有时候会有新的功能加入，执行这条命令即可更新到最新版本
