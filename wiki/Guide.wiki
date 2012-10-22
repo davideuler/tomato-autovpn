@@ -42,7 +42,7 @@ tomato系统缺陷带来的影响：
 9.exit and enjoy your life 
 ———————————————-
 
-你可以在终端里直接运行： 输入 {{{ /jffs/openvpn/tools.sh }}}
+你可以在终端里直接运行： 输入 {{{ /jffs/openvpn/tools.sh: }}}
 
 然后按照提示输入相应的数字即可。
 
