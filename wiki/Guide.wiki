@@ -1,6 +1,6 @@
 tautovpn是从chnroutes和autoddvpn启发而来的一套完整的解决方案。他可以让Tomato路由器达到自动翻墙的效果。让连接到路由器上的设备能够自动翻墙墙，客户端无论是Windows，IPhone，IPad还是MAC等都感觉不到任何麻烦直接访问全球所有的网站，完全感觉不到墙的存在。
 
-项目位置：
+=项目位置：=
 
 Google Code托管地址：
 
@@ -12,6 +12,7 @@ https://github.com/enjoydiy/ttautovpn
 
 具体的安装方法请参考：
 http://blog.enjoydiy.com/2012/10/897.html
+
 一键安装tar包下载地址：
 
 http://tomato-autovpn.googlecode.com/svn/trunk/openvpn.tar.gz
