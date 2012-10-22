@@ -19,12 +19,11 @@ od='tun0'
 opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 if [[ `echo $opsrv | wc -m` -gt 7 ]]
 then
-	echo "hello"
 	echo $opsrv
 	vpnserv=$opsrv
 	echo $opsrv
 fi
-echo "end2"
+
 #0 or more than 1 daemon deal
 ISRUN=`ps | grep "openvpn --config" | grep -v "grep" | wc -l`
 if [[ $ISRUN -ne 1 ]]

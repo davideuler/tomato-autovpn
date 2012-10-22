@@ -23,8 +23,8 @@ echo "3.Set a IP through your network"
 echo "4.Clean up the your own network routes lists"
 echo "5.Start the openvpn daemon"
 echo "6.Update routes from network"
-echo "7.Set openvpn server address"
-echo "8.Update the tools"
+echo "7.Set openvpn server ip port connection type(tcp or udp)"
+echo "8.Update the tools and startopenvpn.sh"
 echo "9.exit and enjoy your life"
 echo "----------------------------------------------"
 if [ -z $1 ]; then
@@ -137,12 +137,17 @@ case "$fun" in
    fi
   ;;
   8)
-   rm /jffs/openvpn/tools.sh.bak
    wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
+   wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/startopenvpn.sh -O /jffs/openvpn/startopenvpn.sh.bak
    chmod 777 /jffs/openvpn/tools.sh.bak
+   chmod 777 /jffs/openvpn/startopenvpn.sh.bak
    if [ `cat /jffs/openvpn/tools.sh.bak | wc -l` -gt 100 ]; then
       mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
-      echo "UPDATE OK!"
+      echo "UPDATE tools.sh OK!"
+   fi
+   if [ `cat /jffs/openvpn/startopenvpn.sh.bak | wc -l` -gt 10 ]; then
+      mv /jffs/openvpn/startopenvpn.sh.bak /jffs/openvpn/startopenvpn.sh
+      echo "UPDATE startopenvpn.sh OK!"
    fi
   ;;
   9)
