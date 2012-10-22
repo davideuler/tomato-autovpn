@@ -1,0 +1,2 @@
+tools.sh是一个管理工具，利用他可以完成控制和更新等功能，如果在终端中不加参数执行会有详细的功能介绍和引导界面。
+[http://blog.enjoydiy.com http://tomato-autovpn.googlecode.com/files/tomato-tools.sh.JPG]
