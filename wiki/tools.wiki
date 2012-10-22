@@ -1,2 +1,28 @@
 tools.sh是一个管理工具，利用他可以完成控制和更新等功能，如果在终端中不加参数执行会有详细的功能介绍和引导界面。
 [http://blog.enjoydiy.com http://tomato-autovpn.googlecode.com/files/tomato-tools.sh.JPG]
+
+终端中运行会有如下提示
+{{{
+The functions lists: 
+———————————————- 
+1.Set openvpn account and password (设置VPN的账号和密码) 
+2.Set a IP through VPN    （将一个ip强迫走VPN） 
+3.Set a IP through your network （将一个ip强迫走本地网络） 
+4.Clean up the your own network routes lists （清除自定义的路由表） 
+5.Start the openvpn daemon （启动openvpn程序） 
+6.Update routes from network （从网络下载最新的路由表） 
+7.Set openvpn server address （设置OPENVPN服务器地址） 
+8.Update the tools  （更新本工具） 
+9.exit and enjoy your life 
+———————————————-
+}}}
+这个可能不是最新的，由于tools.sh一直在更新。
+运行这个脚本可以带参数，也可以不带参数，不带参数每一步都会有提示的。
+
+带参数使用方法：
+ 1、设置账户和密码
+{{{
+/jffs/openvpn/tools.sh 1 账号 密码
+}}}
+输入这条命令既可设置openvpn的账号和密码
+
