@@ -28,7 +28,7 @@ tomato系统缺陷带来的影响：
 
 2、tools.sh 这个是管理工具，主要有如下功能：
 
-
+{{{
  The functions lists: 
 ———————————————- 
 1.Set openvpn account and password (设置VPN的账号和密码) 
@@ -41,7 +41,7 @@ tomato系统缺陷带来的影响：
 8.Update the tools  （更新本工具） 
 9.exit and enjoy your life 
 ———————————————-
-
+}}}
 你可以在终端里直接运行： 输入 /jffs/openvpn/tools.sh
 
 然后按照提示输入相应的数字即可。
@@ -65,17 +65,16 @@ tomato系统缺陷带来的影响：
 目前还无法在tomato上面找到一个稳定的方法获取openvpn服务器端的内网IP，一般为10.8.0.1，目前的做法是在openvpn连接时候server会将该信息push下来，我们从log中找到了这个IP，但不保证所有的openvpn的服务商都能满足，如果获取不到这个IP，我们的检测程序将无法正常运行，检测方法是：
 
 在终端中运行：
-
+{{{
 nvram get openvpnsrv
-
+}}}
 如果能返回一个IP地址，然后你ping下这个地址，如果能通，说明已经能获取到了。
 
 如果不通或者无法获取到IP，则需要你问下你的服务商，服务器的内网IP是多少，然后做如下设置：
-
+{{{
 nvram set openvpnsrv=服务商给你的服务器内网ip
-
 nvram commit
-
+}}}
  
 使用说明（tomato固件操作的我简单说下，有不懂的回帖）：
 1、首先需要打开jffs
@@ -91,34 +90,36 @@ chmod 777 -R *
 3、一键包默认是提供我的服务器证书和key文件，需要你的服务商的文件覆盖，如果没有openvpn账号可以联系我购买。
 这里采用的是账号密码认证，需要一个证书和key文件
 还是这个那个命令框里输入：
-
+{{{
 /jffs/openvpn/tools.sh 1 你的账号 你的密码
-
+}}}
 执行，这一步将账号和密码写入了配置文件，
 
 然后下一步将证书写入：
-
+{{{
 cat >>/jffs/openvpn/ca.crt <<
 这里写证书内容
 EOF
-
+}}}
 然后点执行。
 
 下一步写入key：
-
+{{{
 cat >>/jffs/openvpn/ca.key <<
 key内容
 EOF
-
+}}}
 然后是服务器地址和连接类型
 举个例子吧，比如服务器的IP是vpn.enjoydiy.com 端口为53 协议类型为tcp
 执行这个命令：
+{{{
 /jffs/openvpn/tools.sh 7 vpn.enjoydiy.com 53 tcp
-
+}}}
 返回ok即可。
 
 4、文件都准备好了，接下来就很简单了
 到高级设置-DNCP/DNS里面 dnsmasq添加：
+{{{
 address=/www.facebook.com/66.220.146.94
 address=/www.youtube.com/72.14.203.190
 address=/twitter.com/199.59.148.82
@@ -143,20 +144,24 @@ server=/books.com.tw/8.8.8.8
 server=/book.com.tw/8.8.8.8
 server=/nownews.com/8.8.8.8
 server=/gov.tw/8.8.8.8
-
+}}}
 这些内容可以参考http://code.google.com/p/tomato-autovpn/source/browse/trunk/grace/routeg/dnsmasq
 
 5、然后到系统管理-定时任务里输入
+{{{
 sh /jffs/openvpn/startopenvpn.sh 
-每隔3分钟执行一下即可
+}}}
+设置每隔3分钟或者1分钟执行一下即可
 
 6、然后到系统管理-脚本设置里输入：
+{{{
 insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
 date -s "2012-10-10 12:12:12" 
-
+}}}
 7、当WAN联机输入：
+{{{
 sh /jffs/openvpn/startopenvpn.sh 
-
+}}}
 
 
  
