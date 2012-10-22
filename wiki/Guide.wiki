@@ -23,7 +23,7 @@ tomato系统缺陷带来的影响：
 
  
 
-关键文件说明：
+=关键文件说明：=
 
 1、startopenvpn.sh 这个是openvpn的启动和检测纠错脚本，建议每隔3分钟运行一下，开机启动运行一下。
 
@@ -45,7 +45,7 @@ tomato系统缺陷带来的影响：
 }}}
 你可以在终端里直接运行： 输入 /jffs/openvpn/tools.sh
 
-然后按照提示输入相应的数字即可。
+然后按照提示输入相应的数字即可。（[http://code.google.com/p/tomato-autovpn/wiki/tools tools.sh的具体功能访问这里]）
 
 3、ca.crt 是证书文件，需要将服务商证书覆盖
 
@@ -55,25 +55,7 @@ tomato系统缺陷带来的影响：
 
 6、passwd.txt 是openvpn的账号和密码
 
- 
-
-重要提示：
-
-目前还无法在tomato上面找到一个稳定的方法获取openvpn服务器端的内网IP，一般为10.8.0.1，目前的做法是在openvpn连接时候server会将该信息push下来，我们从log中找到了这个IP，但不保证所有的openvpn的服务商都能满足，如果获取不到这个IP，我们的检测程序将无法正常运行，检测方法是：
-
-在终端中运行：
-{{{
-nvram get openvpnsrv
-}}}
-如果能返回一个IP地址，然后你ping下这个地址，如果能通，说明已经能获取到了。
-
-如果不通或者无法获取到IP，则需要你问下你的服务商，服务器的内网IP是多少，然后做如下设置：
-{{{
-nvram set openvpnsrv=服务商给你的服务器内网ip
-nvram commit
-}}}
- 
-使用说明（tomato固件操作的我简单说下，有不懂的回帖）：
+=使用说明：=
 1、首先需要打开jffs
 
 2、在诊断工具-系统命令中输入
@@ -158,11 +140,24 @@ date -s "2012-10-10 12:12:12"
 7、当WAN联机输入：
 {{{
 sh /jffs/openvpn/startopenvpn.sh 
+}}} 
+
+=重要提示：=
+
+目前还无法在tomato上面找到一个稳定的方法获取openvpn服务器端的内网IP，一般为10.8.0.1，目前的做法是在openvpn连接时候server会将该信息push下来，我们从log中找到了这个IP，但不保证所有的openvpn的服务商都能满足，如果获取不到这个IP，我们的检测程序将无法正常运行，检测方法是：
+
+在终端中运行：
+{{{
+nvram get openvpnsrv
 }}}
+如果能返回一个IP地址，然后你ping下这个地址，如果能通，说明已经能获取到了。
 
-
+如果不通或者无法获取到IP，则需要你问下你的服务商，服务器的内网IP是多少，然后做如下设置：
+{{{
+nvram set openvpnsrv=服务商给你的服务器内网ip
+nvram commit
+}}}
  
-
 该项目一个人费了很多精力去完成，免费提供给网友，请大家转载注明出处:http://blog.enjoydiy.com http://bbs.enjoydiy.com
 
 作者E-mail:admin@enjoydiy.com aefskw@gmail.com
