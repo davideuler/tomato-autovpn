@@ -1,3 +1,4 @@
+##### begin making route #####
 # Google DNS and OpenDNS
 route add -host 8.8.8.8 gw $VPNGW
 route add -host 8.8.4.4 gw $VPNGW
@@ -1149,3 +1150,4 @@ route add -net 97.74.144.0/24 gw $VPNGW
 route add -net 97.74.215.0/24 gw $VPNGW
 route add -net 98.129.229.0/24 gw $VPNGW
 route add -net 98.139.135.0/24 gw $VPNGW
+##### end making route #####
