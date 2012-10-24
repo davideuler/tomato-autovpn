@@ -104,6 +104,7 @@ grep ^route $VPNUPCUSTOM  | /bin/sh -x
 #vpnsrv ip address deal
 opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 if [ `echo $opsrv | wc -m` -lt 8 ]; then
+#	opsrv_1=`cat /var/log/message* | sed -n 's#^.*route\ \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\),.*#\1#pg' | sed q`
 	opsrv_1=`grep 'route 1' /var/log/message* | sed -n '1,1p' | awk -F, '{i=1;while(i<=NF){if(match($i,/^route\ 1/)){print $i; exit;};i++}}' | awk -F' ' '{print $2}' |grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 	if [ `echo $opsrv_1 | wc -m` -gt 7 ]; then
 		`nvram set openvpnsrv=$opsrv_1`
