@@ -76,6 +76,11 @@ else
 			exit;
 		fi
 	fi
+
+	PING=`ping -q -c4 twitter.com | grep received |awk '{print $4}'`
+	if [ $PING -lt 1 ]; then
+		service dnsmasq restart
+	fi
 	echo "Openvp is already running ..."
 fi
 exit
