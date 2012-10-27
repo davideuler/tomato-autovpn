@@ -28,7 +28,7 @@ The functions lists:
 
  2 将某个IP强制走VPN
 {{{
-/jffs/openvpn/tools.sh 1 ip地址
+/jffs/openvpn/tools.sh 2 ip地址
 }}}
  这个是立即生效的，并且下次重启后还会生效。
 
