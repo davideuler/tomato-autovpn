@@ -78,17 +78,11 @@ esac
 echo "[INFO] removing the static routes"
 
 ##### begin batch route #####
-#grep ^route $CHINART | /bin/sh -x 
+grep ^route $CHINART | /bin/sh -x 
 
 if [ -f $VPNUPCUSTOM ]; then
 grep ^route $VPNUPCUSTOM | sed -e 's/add/del/' | sed -e 's/ gw $OLDGW//' | sed -e 's/ gw $VPNGW//' | /bin/sh -x 
 fi
-
-route -n | awk '$NF ~ /tun0/{print $1,$3}' | while read x y
-do
-        echo "deleting $x $y"
-        route del -net $x netmask $y
-done
 
 opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 if [[ `echo $opsrv | wc -m` -gt 7 ]]
