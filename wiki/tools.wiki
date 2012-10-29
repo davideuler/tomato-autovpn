@@ -13,7 +13,11 @@ The functions lists:
 6.Update routes from network （从网络下载最新的路由表） 
 7.Set openvpn server address （设置OPENVPN服务器地址） 
 8.Update the tools  （更新本工具） 
-9.exit and enjoy your life 
+9.Enable auto select fastest server
+10.Set a prior server
+11.Change the mode to normal
+12.Change the mode to grace
+13.exit and enjoy your life
 ———————————————-
 }}}
 这个可能不是最新的，由于tools.sh一直在更新。
@@ -60,3 +64,13 @@ The functions lists:
 /jffs/openvpn/tools.sh 8
 }}}
  有时候会有新的功能加入，执行这条命令即可更新到最新版本
+
+ 9 自动寻找最快的服务器
+开启：
+{{{
+/jffs/openvpn/tools.sh 9 y
+}}}
+关闭：
+{{{
+/jffs/openvpn/tools.sh 9 n
+}}}
