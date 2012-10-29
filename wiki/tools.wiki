@@ -67,11 +67,11 @@ The functions lists:
  有时候会有新的功能加入，执行这条命令即可更新到最新版本
 
  9 自动寻找最快的服务器
-开启：
+ 开启：
 {{{
 /jffs/openvpn/tools.sh 9 y
 }}}
-关闭：
+ 关闭：
 {{{
 /jffs/openvpn/tools.sh 9 n
 }}}
@@ -80,16 +80,16 @@ The functions lists:
 {{{
 /jffs/openvpn/tools.sh 10 服务器地址
 }}}
-当9号功能打开时候有效
+ 当9号功能打开时候有效
 
  11 切换到normal模式
 {{{
 /jffs/openvpn/tools.sh 11
 }}}
-这个模式特点：所有国外的网站都走VPN
+ 这个模式特点：所有国外的网站都走VPN
 
  12 切换到grace模式
 {{{
 /jffs/openvpn/tools.sh 11
 }}}
-切换到grace模式，这个模式特点：国内不能访问的网站走VPN，其他都走本地网络
+ 切换到grace模式，这个模式特点：国内不能访问的网站走VPN，其他都走本地网络
