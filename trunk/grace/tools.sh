@@ -25,7 +25,11 @@ echo "5.Start the openvpn daemon"
 echo "6.Update routes from network"
 echo "7.Set openvpn server ip port connection type(tcp or udp)"
 echo "8.Update the tools and startopenvpn.sh"
-echo "9.exit and enjoy your life"
+echo "9.Enable auto select fastest server"
+echo "10.Set a prior server"
+echo "11.Change the mode to normal"
+echo "12.Change the mode to grace"
+echo "13.exit and enjoy your life"
 echo "----------------------------------------------"
 if [ -z $1 ]; then
   read -p "Please type a number: " fun
@@ -151,6 +155,43 @@ case "$fun" in
    fi
   ;;
   9)
+	if [ -n $2 ]; then
+		pd=$2
+	else
+		read -p "Enable the function? y or n:" pd
+	fi
+
+	if [ $pd = "y" ]; then
+		touch /jffs/openvpn/enable_best_line
+		echo "enable"
+	else
+		rm /jffs/openvpn/enable_best_line
+		echo "disable"
+	fi
+  ;;
+  10)
+	if [ -n $2 ]; then
+		ip=$2
+	else
+		read -p "Type your favourite ip:" ip
+	fi
+	echo $ip > /jffs/openvpn/like_server
+	echo "OK!"
+  ;;
+  11)
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/vpnup.sh -O /jffs/openvpn/routeg/vpnup.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/vpndown.sh -O /jffs/openvpn/routeg/vpndown.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/down.sh -O /jffs/openvpn/routeg/down.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/up.sh -O /jffs/openvpn/routeg/up.sh
+	chmod 777 /jffs/openvpn/routeg/*.sh
+	echo "OK!"
+  ;;
+  12)
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpnup.sh -O /jffs/openvpn/routeg/vpnup.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpndown.sh -O /jffs/openvpn/routeg/vpndown.sh
+	chmod 777 /jffs/openvpn/routeg/*.sh
+  ;;
+  13)
      echo "Good Bye!"
      exit
   ;;
