@@ -24,7 +24,7 @@ echo "4.Clean up the your own network routes lists"
 echo "5.Start the openvpn daemon"
 echo "6.Update routes from network"
 echo "7.Set openvpn server ip port connection type(tcp or udp)"
-echo "8.Update the tools and startopenvpn.sh"
+echo "8.Update the tools and startopenvpn.sh and server_list"
 echo "9.Enable auto select fastest server"
 echo "10.Set a prior server"
 echo "11.Change the mode to normal"
@@ -143,8 +143,14 @@ case "$fun" in
   8)
    wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/tools.sh -O /jffs/openvpn/tools.sh.bak
    wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/startopenvpn.sh -O /jffs/openvpn/startopenvpn.sh.bak
+   wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/server_list -O /jffs/openvpn/server_list.bak
    chmod 777 /jffs/openvpn/tools.sh.bak
+   chmod 777 /jffs/openvpn/server_list.bak
    chmod 777 /jffs/openvpn/startopenvpn.sh.bak
+   if [ `cat /jffs/openvpn/server_list.bak | wc -l` -gt 0 ]; then
+      mv /jffs/openvpn/server_list.bak /jffs/openvpn/server_list
+      echo "UPDATE server_list OK!"
+   fi
    if [ `cat /jffs/openvpn/tools.sh.bak | wc -l` -gt 100 ]; then
       mv /jffs/openvpn/tools.sh.bak /jffs/openvpn/tools.sh
       echo "UPDATE tools.sh OK!"

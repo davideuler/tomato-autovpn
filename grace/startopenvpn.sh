@@ -51,7 +51,7 @@ find_best_line() {
 	fi
 	echo "final server $s"
 	if [ -e /jffs/openvpn/like_server ]; then
-		$tmp_ser=`cat /jffs/openvpn/like_server`
+		tmp_ser=`head -n1 /jffs/openvpn/like_server`
 		ping_val=`ping -q -c2 ${tmp_ser}`
 		PING=`echo $ping_val | grep received |awk '{print $4}'`
 		if [[ -n $PING ]] && [[ $PING -gt 1 ]]
