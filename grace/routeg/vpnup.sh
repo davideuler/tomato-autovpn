@@ -1,5 +1,7 @@
 #!/bin/sh
-
+#   TT-AUTOVPN
+#   E-mail:admin@enjoydiy.com
+#   http://bbs.enjoydiy.com
 set -x
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
@@ -10,7 +12,8 @@ EXROUTEDIR='/jffs/exroute.d'
 INFO="[INFO#${PID}]"
 DEBUG="[DEBUG#${PID}]"
 ERROR="[ERROR#${PID}]"
-ZJ="[ZIJIAO#${PID}]"
+CHINART='/jffs/openvpn/routeg/up.sh'
+opsrvdefault='10.8.0.1'
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh started" >> $LOG
 for i in 1 2 3 4 5 6
@@ -47,15 +50,17 @@ case $1 in
 				VPNSRVSUB=$(nvram get pptpd_client_srvsub)
 				PPTPDEV=$(nvram get pptp_client_iface)
 				VPNGW=$(nvram get pptp_client_gateway)
+				VPNUPCUSTOM='/jffs/pptp/vpnup_custom'
 				;;
 			*)
 				# assume it to be a DD-WRT
 				echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") router type: DD-WRT" >> $LOG
 				VPNSRV=$(nvram get pptpd_client_srvip)
 				VPNSRVSUB=$(nvram get pptpd_client_srvsub)
+				#PPTPDEV=$(route -n | grep ^$VPNSRVSUB | awk '{print $NF}')
 				PPTPDEV=$(route -n | grep ^${VPNSRVSUB%.[0-9]*} | awk '{print $NF}' | head -n 1)
 				VPNGW=$(ifconfig $PPTPDEV | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)
-				VPNUPCUSTOM='/jffs/pptp/vpnup_custom' 
+				VPNUPCUSTOM='/jffs/pptp/vpnup_custom'
 				;;
 		esac
 		;;
@@ -81,41 +86,40 @@ else
 	echo "$INFO OLDGW is $OLDGW" 
 fi
 
-#route add -host $VPNSRV gw $OLDGW
-#echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") delete default gw $OLDGW"  >> $LOG
-#route del default gw $OLDGW
-
-#echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") add default gw $VPNGW"  >> $LOG
-#route add default gw $VPNGW
-
-
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
-
-##### begin batch route #####
-##### end batch route #####
-
-
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") loading vpnup_custom if available" >> $LOG
-export VPNGW=$VPNGW
-export OLDGW=$OLDGW
-grep ^route '/jffs/openvpn/routeg/route'  | /bin/sh -x
-grep ^route $VPNUPCUSTOM  | /bin/sh -x
-
 #vpnsrv ip address deal
 opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 if [ `echo $opsrv | wc -m` -lt 8 ]; then
-#	opsrv_1=`cat /var/log/message* | sed -n 's#^.*route\ \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\),.*#\1#pg' | sed q`
+#       opsrv_1=`cat /var/log/message* | sed -n 's#^.*route\ \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\),.*#\1#pg' | sed q`
 	opsrv_1=`grep 'route 1' /var/log/message* | sed -n '1,1p' | awk -F, '{i=1;while(i<=NF){if(match($i,/^route\ 1/)){print $i; exit;};i++}}' | awk -F' ' '{print $2}' |grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 	if [ `echo $opsrv_1 | wc -m` -gt 7 ]; then
 		`nvram set openvpnsrv=$opsrv_1`
 		opsrv=$opsrv_1
 	else
-		echo "$ZJ can't get the value of openvpnsrv,please write to nvram by hand,thank you!" >> $LOG
+		echo " can't get the value of openvpnsrv,please write to nvram by hand,thank you!" >> $LOG
+		opsrv=$opsrvdefault
 	fi
 fi
 echo "$ZJ the value of openvpnsrv is $opsrv" >> $LOG
 route add -host $opsrv gw $VPNGW
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") make $opsrv gw $OLDGW"  >> $LOG
+#route add -host $VPNSRV gw $OLDGW
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") delete default gw $OLDGW"  >> $LOG
+route del default gw $OLDGW
 
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") add default gw $VPNGW"  >> $LOG
+route add default gw $VPNGW
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
+
+##### begin batch route #####
+export VPNGW=$VPNGW
+export OLDGW=$OLDGW
+grep ^route $CHINART | /bin/sh -x
+##### end batch route #####
+
+if [ -f $VPNUPCUSTOM ]; then
+grep ^route $VPNUPCUSTOM | /bin/sh -x
+fi
 
 # prepare for the exceptional routes, see http://code.google.com/p/autoddvpn/issues/detail?id=7
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") preparing the exceptional routes" >> $LOG
@@ -142,11 +146,9 @@ if [ $(nvram get exroute_enable) -eq 1 ]; then
 			# check the item is a subnet or a single ip address
 			echo $r | grep "/" > /dev/null
 			if [ $? -eq 0 ]; then
-				route del -net $r
-				route add -net $r gw $OLDGW
+				route add -net $r gw $(nvram get wan_gateway) 
 			else
-				route del $r
-				route add $r gw $OLDGW
+				route add $r gw $(nvram get wan_gateway) 
 			fi
 		done 
 	done
@@ -159,9 +161,9 @@ if [ $(nvram get exroute_enable) -eq 1 ]; then
 		# check the item is a subnet or a single ip address
 		echo $i | grep "/" > /dev/null
 		if [ $? -eq 0 ]; then
-			route add -net $i gw $OLDGW
+			route add -net $i gw $(nvram get wan_gateway) 
 		else
-			route add $i gw $OLDGW
+			route add $i gw $(nvram get wan_gateway) 
 		fi
 	done
 else
@@ -177,19 +179,20 @@ do
 	echo "$DEBUG my current gw is $GW"
 	#route | grep ^default | awk '{print $2}'
 	if [ "$GW" == "$OLDGW" ]; then 
-		echo "$DEBUG GOOD"
-		#echo "$INFO delete default gw $OLDGW" 
-		#route del default gw $OLDGW
-		#echo "$INFO add default gw $VPNGW again" 
-		#route add default gw $VPNGW
-		break
+		echo "$DEBUG still got the OLDGW, why?"
+		echo "$INFO delete default gw $OLDGW" 
+		route del default gw $OLDGW
+		echo "$INFO add default gw $VPNGW again" 
+		route add default gw $VPNGW
+		sleep 3
 	else
-		echo "$DEBUG default gw is not WAN GW"
 		break
 	fi
 done
 
 echo "$INFO static routes added"
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") restarting DNS" >> $LOG
+restart_dns
 # release the lock
 rm -f $LOCK
