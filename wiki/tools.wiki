@@ -24,12 +24,12 @@ The functions lists:
 运行这个脚本可以带参数，也可以不带参数，不带参数每一步都会有提示的。
 
 带参数使用方法：
- # 设置账户和密码
+# 设置账户和密码
 {{{
 /jffs/openvpn/tools.sh 1 账号 密码
 }}}
  输入这条命令既可设置openvpn的账号和密码
- # 将某个IP强制走VPN
+# 将某个IP强制走VPN
 {{{
 /jffs/openvpn/tools.sh 2 ip地址
 }}}
