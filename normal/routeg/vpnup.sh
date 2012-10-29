@@ -195,4 +195,11 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") restarting DNS" >> $LOG
 restart_dns
 # release the lock
+
+#For enjoydiy server
+route add -host  69.85.87.167 gw $OLDGW
+route add -host  116.251.210.208 gw $OLDGW
+route add -host  69.85.86.64 gw $OLDGW
+route add -host  184.170.244.109 gw $OLDGW
+route add -host 216.172.132.89 gw $OLDGW
 rm -f $LOCK
