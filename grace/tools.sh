@@ -161,7 +161,7 @@ case "$fun" in
    fi
   ;;
   9)
-	if [ -n $2 ]; then
+	if [ -n "$2" ]; then
 		pd=$2
 	else
 		read -p "Enable the function? y or n:" pd
@@ -176,7 +176,7 @@ case "$fun" in
 	fi
   ;;
   10)
-	if [ -n $2 ]; then
+	if [ -n "$2" ]; then
 		ip=$2
 	else
 		read -p "Type your favourite ip:" ip
