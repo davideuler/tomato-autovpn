@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+#   E-mail:admin@enjoydiy.com
+#   http://bbs.enjoydiy.com
+#
 
 set -x
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
@@ -10,6 +14,8 @@ PID=$$
 INFO="[INFO#${PID}]"
 DEBUG="[DEBUG#${PID}]"
 ERROR="[ERROR#${PID}]"
+CHINART='/jffs/openvpn/routeg/down.sh'
+vpnserv='10.8.0.1'
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpndown.sh started" >> $LOG
 for i in 1 2 3 4 5 6
@@ -49,8 +55,8 @@ case $1 in
 					VPNUPCUSTOM='/jffs/pptp/vpnup_custom'
 					;;
 				"DD-WRT")                                                                 
-					VPNUPCUSTOM='/jffs/pptp/vpnup_custom'
 					PPTPSRV=$(nvram get pptpd_client_srvip)
+					VPNUPCUSTOM='/jffs/pptp/vpnup_custom'
 					VPNGW=$(nvram get pptp_gw)
 					;;
 			esac
@@ -58,8 +64,8 @@ case $1 in
 		"openvpn")
 			OPENVPNSRV=$(nvram get openvpncl_remoteip)
 			OPENVPNDEV='tun0'
-			VPNUPCUSTOM='/jffs/openvpn/vpnup_custom'
 			VPNGW=$(ifconfig $OPENVPNDEV | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)
+			VPNUPCUSTOM='/jffs/openvpn/vpnup_custom'
 			;;
 		*)
 			echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") unknown vpndown.sh parameter, quit." >> $LOCK
@@ -72,30 +78,28 @@ esac
 echo "[INFO] removing the static routes"
 
 ##### begin batch route #####
-#route -n | awk '$2 ~ /192.168.172.254/{print $1,$3}'  | while read x y
-route -n | awk '$NF ~ /tun0/{print $1,$3}' | while read x y
-do
-	echo "deleting $x $y"
-	route del -net $x netmask $y
-done
-##### end batch route #####
+grep ^route $CHINART | /bin/sh -x 
 
-#del vpncustom route
-if [ -f $VPNUPCUSTOM ]; then                                                                                  
-grep ^route $VPNUPCUSTOM | sed -e 's/add/del/' | sed -e 's/ gw $OLDGW//' | sed -e 's/ gw $VPNGW//' | /bin/sh -x
-fi 
+if [ -f $VPNUPCUSTOM ]; then
+grep ^route $VPNUPCUSTOM | sed -e 's/add/del/' | sed -e 's/ gw $OLDGW//' | sed -e 's/ gw $VPNGW//' | /bin/sh -x 
+fi
+
+opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
+if [[ `echo $opsrv | wc -m` -gt 7 ]]
+then
+	echo $opsrv
+	vpnserv=$opsrv
+	echo $opsrv
+fi
+route del -host $vpnserv
+##### end batch route #####
 
 #route del -host $PPTPSRV 
 route del default gw $VPNGW
 echo "$INFO add $OLDGW back as the default gw"
 route add default gw $OLDGW
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpndown.sh ended" >> $LOG
 
-#del the opensrv
-opsrv=`nvram get openvpnsrv`
-if [ `echo $opsrv | wc -m` -gt 7 ]; then
-	route del -host $opsrv
-fi
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpndown.sh ended" >> $LOG
 
 # release the lock                                                                                
 rm -f $LOCK
