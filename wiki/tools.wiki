@@ -24,48 +24,49 @@ The functions lists:
 运行这个脚本可以带参数，也可以不带参数，不带参数每一步都会有提示的。
 
 带参数使用方法：
- # 设置账户和密码
+ 1 设置账户和密码
 {{{
 /jffs/openvpn/tools.sh 1 账号 密码
 }}}
  输入这条命令既可设置openvpn的账号和密码
 
- # 将某个IP强制走VPN
+ 2 将某个IP强制走VPN
 {{{
 /jffs/openvpn/tools.sh 2 ip地址
 }}}
  这个是立即生效的，并且下次重启后还会生效。
 
- # 强制走本地网络
+ 3 强制走本地网络
  这个用法和2一样的
- # 清除用户设置的路由信息
+
+ 4 清除用户设置的路由信息
 {{{
 /jffs/openvpn/tools.sh 4
 }}}
  这样直接执行既可不用带任何参数，会清除掉你添加的路由信息
  
- # 启动openvpn
+ 5 启动openvpn
 {{{
 /jffs/oenvpn/tools.sh 5
 }}}
 
- # 更新GFW list到本地
+ 6 更新GFW list到本地
 {{{
 /jffs/openvpn/tools.sh 6
 }}}
 
- # 设置openvpn服务器的地址、端口、协议类型
+ 7 设置openvpn服务器的地址、端口、协议类型
 {{{
 /jffs/openvpn/tools.sh 7 服务器地址 端口 协议（tcp或者udp）
 }}}
 
- # 更新本工具和openvpn的启动脚本
+ 8 更新本工具和openvpn的启动脚本
 {{{
 /jffs/openvpn/tools.sh 8
 }}}
  有时候会有新的功能加入，执行这条命令即可更新到最新版本
 
- # 自动寻找最快的服务器
+ 9 自动寻找最快的服务器
 开启：
 {{{
 /jffs/openvpn/tools.sh 9 y
@@ -75,19 +76,19 @@ The functions lists:
 /jffs/openvpn/tools.sh 9 n
 }}}
 
- # 设置优先使用的服务器
+ 10 设置优先使用的服务器
 {{{
 /jffs/openvpn/tools.sh 10 服务器地址
 }}}
 当9号功能打开时候有效
 
- # 切换到normal模式
+ 11 切换到normal模式
 {{{
 /jffs/openvpn/tools.sh 11
 }}}
 这个模式特点：所有国外的网站都走VPN
 
- # 切换到grace模式
+ 12 切换到grace模式
 {{{
 /jffs/openvpn/tools.sh 11
 }}}
