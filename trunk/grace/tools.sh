@@ -195,7 +195,8 @@ case "$fun" in
   12)
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpnup.sh -O /jffs/openvpn/routeg/vpnup.sh
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpndown.sh -O /jffs/openvpn/routeg/vpndown.sh
-	chmod 777 /jffs/openvpn/routeg/*.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/route -O /jffs/openvpn/routeg/route
+	chmod 777 /jffs/openvpn/routeg/*
   ;;
   13)
      echo "Good Bye!"
