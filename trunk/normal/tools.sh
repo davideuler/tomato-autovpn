@@ -161,7 +161,7 @@ case "$fun" in
    fi
   ;;
   9)
-	if [ -n $2 ]; then
+	if [ -n "$2" ]; then
 		pd=$2
 	else
 		read -p "Enable the function? y or n:" pd
@@ -176,7 +176,7 @@ case "$fun" in
 	fi
   ;;
   10)
-	if [ -n $2 ]; then
+	if [ -n "$2" ]; then
 		ip=$2
 	else
 		read -p "Type your favourite ip:" ip
@@ -195,7 +195,8 @@ case "$fun" in
   12)
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpnup.sh -O /jffs/openvpn/routeg/vpnup.sh
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpndown.sh -O /jffs/openvpn/routeg/vpndown.sh
-	chmod 777 /jffs/openvpn/routeg/*.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/route -O /jffs/openvpn/routeg/route
+	chmod 777 /jffs/openvpn/routeg/*
   ;;
   13)
      echo "Good Bye!"
