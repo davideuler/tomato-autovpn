@@ -32,14 +32,13 @@ find_best_line() {
 	if [ -e /jffs/openvpn/enable_best_line ]; then
 		while read -r line
 			do
-				ping_val=`ping -q -c2 ${line}`
-				PING=`echo $ping_val | grep received |awk '{print $4}'`
+				PING=`ping -q -c2 ${line} | grep received |awk '{print $4}'`
 				if [[ $PING -lt 1 ]]
 				then
 					continue
 				fi
 
-				time_new=`echo $ping_val |sed -n 's#^round-trip min/avg/max = \([0-9]*\)\..*/.*/.*#\1#pg'`				
+				time_new=`ping -q -c2 ${line} |sed -n 's#^round-trip min/avg/max = \([0-9]*\)\..*/.*/.*#\1#pg'`				
 				if [[ $time_new -lt $time ]]
 				then
 					s=$line
@@ -52,7 +51,7 @@ find_best_line() {
 	fi
 	echo "final server $s"
 	if [ -e /jffs/openvpn/like_server ]; then
-		$tmp_ser=`cat /jffs/openvpn/like_server`
+		tmp_ser=`head -n1 /jffs/openvpn/like_server`
 		ping_val=`ping -q -c2 ${tmp_ser}`
 		PING=`echo $ping_val | grep received |awk '{print $4}'`
 		if [[ -n $PING ]] && [[ $PING -gt 1 ]]
@@ -62,9 +61,9 @@ find_best_line() {
 	fi
 	
 	if [ $s = 'vpn.enjoydiy.com' ]; then
-		`/jffs/openvpn/tools.sh 7 vpn.enjoydiy.com 53 udp`
+		/jffs/openvpn/tools.sh 7 vpn.enjoydiy.com 53 udp
 	else
-		`/jffs/openvpn/tools.sh 7 $s`
+		/jffs/openvpn/tools.sh 7 $s
 	fi
 }
 #0 or more than 1 daemon deal
