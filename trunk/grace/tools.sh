@@ -29,7 +29,8 @@ echo "9.Enable auto select fastest server"
 echo "10.Set a prior server"
 echo "11.Change the mode to normal"
 echo "12.Change the mode to grace"
-echo "13.exit and enjoy your life"
+echo "13. test mode"
+echo "14.exit and enjoy your life"
 echo "----------------------------------------------"
 if [ -z $1 ]; then
   read -p "Please type a number: " fun
@@ -199,6 +200,14 @@ case "$fun" in
 	chmod 777 /jffs/openvpn/routeg/*
   ;;
   13)
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/vpnup2.sh -O /jffs/openvpn/routeg/vpnup.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/vpndown2.sh -O /jffs/openvpn/routeg/vpndown.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/down.sh -O /jffs/openvpn/routeg/down.sh
+	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/up.sh -O /jffs/openvpn/routeg/up.sh
+	chmod 777 /jffs/openvpn/routeg/*.sh
+	echo "OK!"
+  ;;
+  14)
      echo "Good Bye!"
      exit
   ;;
