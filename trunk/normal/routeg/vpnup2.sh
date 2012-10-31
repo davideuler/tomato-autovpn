@@ -40,7 +40,7 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup" >> $LOCK
 OLDGW=$(nvram get zj_gateway)
 if [ `echo $OLDGW | wc -m` -lt 8 ]; then
 	GW=$(route -n | grep ^0.0.0.0 | awk '{print $2}')
-	OLDGW=GW
+	OLDGW=$GW
 	`nvram set zj_gateway=$OLDGW`
 fi
 echo "GW = ${GW}, OLDGW = ${OLDGW}" >> /jffs/openvpn/test_log
