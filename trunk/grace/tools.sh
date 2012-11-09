@@ -198,6 +198,7 @@ case "$fun" in
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/vpndown.sh -O /jffs/openvpn/routeg/vpndown.sh
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/grace/routeg/route -O /jffs/openvpn/routeg/route
 	chmod 777 /jffs/openvpn/routeg/*
+	echo "OK!"
   ;;
   13)
 	wget http://tomato-autovpn.googlecode.com/svn/trunk/normal/routeg/vpnup2.sh -O /jffs/openvpn/routeg/vpnup.sh
