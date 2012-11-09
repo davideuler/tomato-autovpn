@@ -121,6 +121,12 @@ else
 		fi
 	fi
 
+	natnum=`route -n | wc -l`
+	if [[ $natnum -lt 80 ]]
+	then
+		/jffs/openvpn/routeg/vpnup.sh openvpn
+	fi
+
 	PING=`ping -q -c4 twitter.com | grep received |awk '{print $4}'`
 	if [ $PING -lt 1 ]; then
 		service dnsmasq restart
