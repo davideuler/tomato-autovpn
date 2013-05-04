@@ -216,6 +216,7 @@ case "$fun" in
 	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace -O /tmp/route-grace
 	if [ `cat /tmp/route-grace | wc -l` > 100 ]; then
 		mv /tmp/route-grace /jffs/openvpn/routeg
+		chmod 777 /jffs/openvpn/*
 	fi
   ;;
   *)
