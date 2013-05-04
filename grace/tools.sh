@@ -212,6 +212,12 @@ case "$fun" in
      echo "Good Bye!"
      exit
   ;;
+  100)
+	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace -O /tmp/route-grace
+	if [ `cat /tmp/route-grace | wc -l` > 100 ]; then
+		mv /tmp/routeg-grace /jffs/openvpn/routeg
+	fi
+  ;;
   *)
      echo "The wrong num!"
 esac
