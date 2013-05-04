@@ -98,7 +98,7 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") loading vpnup_custom if available" >> $LOG
 export VPNGW=$VPNGW
 export OLDGW=$OLDGW
-grep ^route '/jffs/openvpn/routeg/route'  | /bin/sh -x
+grep ^route '/jffs/openvpn/routeg/route-grace'  | /bin/sh -x
 grep ^route $VPNUPCUSTOM  | /bin/sh -x
 
 #vpnsrv ip address deal
