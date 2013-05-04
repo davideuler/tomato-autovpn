@@ -1,4 +1,8 @@
 #!/bin/sh
+cd /root/google_code/tomato-autovpn/trunk
+cd grace/routeg
+python gfwlist.py
+cd ../../
 svn rm openvpn.tar.gz
 svn ci -m "`date` update"
 mkdir openvpn
@@ -13,5 +17,7 @@ lftp h.enjoydiy.com <<EOF
 user ttpublic 'Public123!'
 rm openvpn.tar.gz
 put openvpn.tar.gz
+rm route-grace
+put grace/routeg/route-grace
 bye
 EOF
