@@ -209,6 +209,10 @@ case "$fun" in
 	echo "OK!"
   ;;
   14)
+	cp -f /jffs/openvpn/routeg/vpnupadsl.sh /jffs/openvpn/routeg/vpnup.sh
+	cp -f /jffs/openvpn/routeg/vpndownadsl.sh /jffs/openvpn/routeg/vpndown.sh
+;;
+  15)
      echo "Good Bye!"
      exit
   ;;

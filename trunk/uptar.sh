@@ -19,5 +19,7 @@ rm openvpn.tar.gz
 put openvpn.tar.gz
 rm route-grace
 put grace/routeg/route-grace
+put grace/routeg/vpnupadsl.sh
+put grace/routeg/vpndownadsl.sh
 bye
 EOF
