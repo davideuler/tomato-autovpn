@@ -223,6 +223,13 @@ case "$fun" in
 		chmod 777 /jffs/openvpn/*
 	fi
   ;;
+  101)
+	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace-xjp -O /tmp/route-grace
+	if [ `cat /tmp/route-grace | wc -l` > 100 ]; then
+		mv /tmp/route-grace /jffs/openvpn/routeg
+		chmod 777 /jffs/openvpn/*
+	fi
+  ;;
   *)
      echo "The wrong num!"
 esac
