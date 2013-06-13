@@ -81,6 +81,9 @@ else
 	echo "$INFO OLDGW is $OLDGW" 
 fi
 
+ip route add 8.8.8.8 via $VPNGW table local                       
+ip route add 8.8.4.4 via $VPNGW table local
+
 #route add -host $VPNSRV gw $OLDGW
 #echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") delete default gw $OLDGW"  >> $LOG
 #route del default gw $OLDGW

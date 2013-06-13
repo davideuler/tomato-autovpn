@@ -3,7 +3,6 @@
 set -x
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-
 LOG='/tmp/autoddvpn.log'
 LOCK='/tmp/autoddvpn.lock'
 PID=$$
@@ -90,6 +89,9 @@ route del default gw $VPNGW
 echo "$INFO add $OLDGW back as the default gw"
 route add default gw $OLDGW
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpndown.sh ended" >> $LOG
+
+ip route del 8.8.8.8 via table local
+ip route del 8.8.4.4 via table local
 
 #del the opensrv
 opsrv=`nvram get openvpnsrv`
