@@ -1,7 +1,7 @@
 #!/bin/sh
 cd /root/google_code/tomato-autovpn/trunk
 cd grace/routeg
-python gfwlist.py
+#python gfwlist.py
 cd ../../
 svn rm openvpn.tar.gz
 svn ci -m "`date` update"
