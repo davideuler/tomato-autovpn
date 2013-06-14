@@ -80,7 +80,7 @@ then
 			exit;
 		fi
 	done   
-	echo $(date)normal >> /jffs/openvpn/log
+	echo $(date)normal >> /tmp/openvpnlog
 	echo "Not running, start!"
 	find_best_line
 	openvpn --config $config --daemon
@@ -105,7 +105,7 @@ then
 		fi
 	done
 	echo "start openvpn..."
-	echo $(date)timeout >> /jffs/openvpn/log
+	echo $(date)timeout >> /tmp/openvpnlog
 	find_best_line
 	openvpn --config $config --daemon
 	echo "PING TIMEOUT, RESTARTED..."
