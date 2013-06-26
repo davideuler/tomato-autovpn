@@ -66,6 +66,14 @@ find_best_line() {
 		/jffs/openvpn/tools.sh 7 $s
 	fi
 }
+
+ME=`ps | grep "startopenvpn" | grep -v "grep" | wc -l`                                                                         
+if [[ $ME -gt 0 ]]                                                                                                             
+then                                                                                                                           
+        echo "startopenvpn is running and exit!"                                                                               
+        exit                                                                                                                   
+fi 
+
 #0 or more than 1 daemon deal
 ISRUN=`ps | grep "openvpn --config" | grep -v "grep" | wc -l`
 if [[ $ISRUN -ne 1 ]]
@@ -75,9 +83,9 @@ then
 	do                                                              
         	echo "open is running,waiting for exiting..."
         	sleep 5                                      
-		PING=`ping -q -c8 $vpnserv | grep received |awk '{print $4}'`
+		PING=`ping -q -c3 $vpnserv | grep received |awk '{print $4}'`
 		if [ $PING -gt 0 ]; then
-			exit;
+			exit
 		fi
 	done   
 	echo $(date)normal >> /tmp/openvpnlog
@@ -89,7 +97,7 @@ fi
 
 #openvpn daemon running error
 echo "will ping test"
-PING=`ping -q -c8 ${vpnserv} | grep received |awk '{print $4}'`
+PING=`ping -q -c3 ${vpnserv} | grep received |awk '{print $4}'`
 if [[ $PING -lt 1 ]]
 then
 	echo "PING TIMEOUT"
@@ -98,7 +106,7 @@ then
 	do
 		echo "open is running,waiting for exiting..."
 		sleep 5
-		PING=`ping -q -c8 $vpnserv | grep received |awk '{print $4}'`
+		PING=`ping -q -c3 $vpnserv | grep received |awk '{print $4}'`
 		if [[ $PING -gt 0 ]]
 		then
 			exit;
@@ -114,7 +122,7 @@ else
 	if [[ $natnum -eq 0 ]]
 	then
 		`iptables -A POSTROUTING -t nat -o ${od} -j MASQUERADE`
-		PING=`ping -q -c8 $vpnserv | grep received |awk '{print $4}'`
+		PING=`ping -q -c3 $vpnserv | grep received |awk '{print $4}'`
 		if [[ $PING -gt 0 ]]
 		then
 			exit;
