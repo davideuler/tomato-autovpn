@@ -68,7 +68,7 @@ find_best_line() {
 }
 
 ME=`ps | grep "startopenvpn" | grep -v "grep" | wc -l`                                                                         
-if [[ $ME -gt 0 ]]                                                                                                             
+if [[ $ME -gt 4 ]]                                                                                                             
 then                                                                                                                           
         echo "startopenvpn is running and exit!"                                                                               
         exit                                                                                                                   
