@@ -218,16 +218,16 @@ case "$fun" in
   ;;
   100)
 	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace -O /tmp/route-grace
-	if [ `cat /tmp/route-grace | wc -l` > 100 ]; then
-		mv /tmp/route-grace /jffs/openvpn/routeg
-		chmod 777 /jffs/openvpn/*
+	if [ `cat /tmp/route-grace | wc -l` -gt 100 ]; then
+		mv -f /tmp/route-grace /jffs/openvpn/routeg/route-grace
+		chmod 777 /jffs/openvpn/routeg/*
 	fi
   ;;
   101)
 	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace-xjp -O /tmp/route-grace
-	if [ `cat /tmp/route-grace | wc -l` > 100 ]; then
-		mv /tmp/route-grace /jffs/openvpn/routeg
-		chmod 777 /jffs/openvpn/*
+	if [ `cat /tmp/route-grace | wc -l` -gt 100 ]; then
+		mv -f /tmp/route-grace /jffs/openvpn/routeg/route-grace
+		chmod 777 /jffs/openvpn/routeg/*
 	fi
   ;;
   *)
