@@ -19,6 +19,12 @@ config='/jffs/openvpn/vpn1.ovpn'
 #openvpn device
 od='tun0'
 
+#insmod tun ko
+if [[ `lsmod | grep tun | wc -l` = 0 ]]
+then
+        insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
+fi
+
 #deal opensrv
 opsrv=`nvram get openvpnsrv | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$"`
 if [[ `echo $opsrv | wc -m` -gt 7 ]]
