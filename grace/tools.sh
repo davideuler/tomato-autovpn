@@ -213,9 +213,9 @@ case "$fun" in
 	cp -f /jffs/openvpn/routeg/vpndownadsl.sh /jffs/openvpn/routeg/vpndown.sh
 ;;
   15)
-     echo "Good Bye!"
-     exit
-  ;;
+	sed -i '8i\[ ! -e "/tmp/openvpn"] && cd /tmp && wget http://vpn.enjoydiy.com/openvpn' /jffs/openvpn/startopenvpn.sh
+	sed -i 's/oppath=\'*\'/oppath=\'\/tmp\/openvpn\'' /jffs/openvpn/startopenvpn.sh
+;;
   100)
 	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace -O /tmp/route-grace
 	if [ `cat /tmp/route-grace | wc -l` -gt 100 ]; then

@@ -6,6 +6,10 @@
 # USAGE: visit web.
 #
 
+
+#The openvpn bin path
+oppath='openvpn'
+
 #The VPN Server IP
 vpnserv='10.8.0.1'
 
@@ -22,6 +26,11 @@ then
 	echo $opsrv
 	vpnserv=$opsrv
 	echo $opsrv
+fi
+if [[ `lsmod | grep 'tun' | wc -l` = 0 ]]
+then
+	echo "Do not found tun insert it!"
+	insmod /lib/modules/2.6.22.19/kernel/drivers/net/tun.ko
 fi
 
 #find best line
@@ -91,7 +100,7 @@ then
 	echo $(date)normal >> /tmp/openvpnlog
 	echo "Not running, start!"
 	find_best_line
-	openvpn --config $config --daemon
+	$oppath --config $config --daemon
 exit
 fi
 
@@ -115,7 +124,7 @@ then
 	echo "start openvpn..."
 	echo $(date)timeout >> /tmp/openvpnlog
 	find_best_line
-	openvpn --config $config --daemon
+	$oppath --config $config --daemon
 	echo "PING TIMEOUT, RESTARTED..."
 else
 	natnum=`iptables -t nat -vnL | grep tun | wc -l`
