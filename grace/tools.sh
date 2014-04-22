@@ -215,7 +215,7 @@ case "$fun" in
 ;;
   15)
 	sed -i '8i\[ ! -e "/tmp/openvpn"] && cd /tmp && wget http://vpn.enjoydiy.com/openvpn' /jffs/openvpn/startopenvpn.sh
-	sed -i 's/oppath=\'*\'/oppath=\'\/tmp\/openvpn\'' /jffs/openvpn/startopenvpn.sh
+	sed -i "s#oppath='openvpn'#oppath='/tmp/openvpn'#" /jffs/openvpn/startopenvpn.sh
 ;;
   100)
 	wget ftp://ttpublic:'Public123!'@h.enjoydiy.com/route-grace -O /tmp/route-grace
