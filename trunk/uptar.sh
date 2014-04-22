@@ -4,7 +4,6 @@ cd grace/routeg
 #python gfwlist.py
 cd ../../
 svn revert openvpn.tar.gz
-svn resolved
 svn rm openvpn.tar.gz --force
 svn ci -m "`date` update"
 mkdir openvpn
