@@ -214,7 +214,7 @@ case "$fun" in
 	cp -f /jffs/openvpn/routeg/vpndownadsl.sh /jffs/openvpn/routeg/vpndown.sh
 ;;
   15)
-	sed -i '8i\[ ! -e "/tmp/openvpn"] && cd /tmp && wget http://vpn.enjoydiy.com/openvpn' /jffs/openvpn/startopenvpn.sh
+	sed -i '8i\[ ! -e "/tmp/openvpn"] && cd /tmp && wget http://vpn.enjoydiy.com/openvpn && chmod 777 /tmp/openvpn && rm -rf /tmp/openvpn.*' /jffs/openvpn/startopenvpn.sh
 	sed -i "s#oppath='openvpn'#oppath='/tmp/openvpn'#" /jffs/openvpn/startopenvpn.sh
 ;;
   100)
