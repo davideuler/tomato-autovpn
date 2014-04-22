@@ -3,7 +3,8 @@ cd /root/google_code/tomato-autovpn/trunk
 cd grace/routeg
 #python gfwlist.py
 cd ../../
-svn rm openvpn.tar.gz
+svn update openvpn.tar.gz
+svn rm openvpn.tar.gz --force
 svn ci -m "`date` update"
 mkdir openvpn
 cp -rf grace/* openvpn
