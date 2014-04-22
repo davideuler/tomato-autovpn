@@ -30,7 +30,8 @@ echo "10.Set a prior server"
 echo "11.Change the mode to normal"
 echo "12.Change the mode to grace"
 echo "13. test mode"
-echo "14.exit and enjoy your life"
+echo "14.cheange to adsl or ppoe mode"
+echo "15. replace the openvpn client in the server"
 echo "----------------------------------------------"
 if [ -z $1 ]; then
   read -p "Please type a number: " fun
