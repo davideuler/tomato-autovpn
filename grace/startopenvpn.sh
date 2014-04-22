@@ -156,4 +156,15 @@ else
 	fi
 	echo "Openvp is already running ..."
 fi
+natnum=`iptables -t nat -vnL | grep tun | wc -l`
+if [[ $natnum -eq 0 ]]
+then
+	echo "wrong iptables no tun device"
+	`iptables -A POSTROUTING -t nat -o ${od} -j MASQUERADE`
+	PING=`ping -q -c3 $vpnserv | grep received |awk '{print $4}'`
+	if [[ $PING -gt 0 ]]
+	then
+		exit;
+	fi
+fi
 exit
