@@ -9,6 +9,7 @@ svn ci -m "`date` update"
 mkdir openvpn
 cp -rf grace/* openvpn
 rm -rf openvpn/.svn
+rm -rf openvpn/100
 rm -rf openvpn/routeg/.svn
 rm -rf openvpn/routeg/d*
 rm -rf openvpn/routeg/g*
